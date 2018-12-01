@@ -1,0 +1,98 @@
+<div class="row mb-3">
+  <div class="col-md-12">
+    <h1>
+      All habbits
+    </h1>
+
+    <a href="/habbits/new" class="btn btn-block btn-outline-secondary">
+      Add a new habbit
+    </a>
+  </div>
+</div>
+
+
+<hr>
+
+<div class="row mb-3">
+  <div class="col-md-12">
+    <table class="table">
+      <tr>
+        <th>
+          ID
+        </th>
+
+        <th>
+          Description
+        </th>
+
+        <th>
+          Points
+        </th>
+
+        <th>
+          Virtue
+        </th>
+
+        <th>
+          Active
+        </th>
+
+        <th>
+          User
+        </th>
+
+        <th>
+          Created at
+        </th>
+
+        <th>
+          Updated at
+        </th>
+
+        <th>
+        </th>
+      </tr>
+
+      <% @habbits.each do |habbit| %>
+      <tr>
+        <td>
+          <%= habbit.id %>
+        </td>
+
+        <td>
+          <%= habbit.description %>
+        </td>
+
+        <td>
+          <%= habbit.points %>
+        </td>
+
+        <td>
+          <%= habbit.virtue %>
+        </td>
+
+        <td>
+          <%= habbit.active %>
+        </td>
+
+        <td>
+          <%= habbit.user_id %>
+        </td>
+
+        <td>
+          <%= time_ago_in_words(habbit.created_at) %> ago
+        </td>
+        <td>
+          <%= time_ago_in_words(habbit.updated_at) %> ago
+        </td>
+
+        <td>
+          <a href="/habbits/<%= habbit.id %>">
+            Show details
+          </a>
+        </td>
+      </tr>
+      <% end %>
+    </table>
+  </div>
+</div>
