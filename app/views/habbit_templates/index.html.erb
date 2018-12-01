@@ -50,41 +50,80 @@
         </th>
 
         <th>
+          Last Performed
+        </th>
+
+        <th>
+          Streak
+        </th>
+
+
+        <th>
         </th>
       </tr>
 
       <% @habbits.each do |habbit| %>
-      <tr>
-        <td>
-          <%= habbit.id %>
+        <tr>
+          <td>
+            <%= habbit.id %>
+          </td>
+
+          <td>
+            <%= habbit.description %>
+          </td>
+
+          <td>
+            <%= habbit.points %>
+          </td>
+
+          <td>
+            <%= habbit.virtue %>
+          </td>
+
+          <td>
+            <%= habbit.active %>
+          </td>
+
+          <td>
+            <%= habbit.user_id %>
+          </td>
+
+          <td>
+            <%= time_ago_in_words(habbit.created_at) %> ago
+          </td>
+          <td>
+            <%= time_ago_in_words(habbit.updated_at) %> ago
+          </td>
+
+          <td>
+            <%= time_ago_in_words(habbit.actions.maximum(:created_at)) %> ago
+          </td>
+
+          <td>
+
+           <% d = Date.today %>
+            <% c= 0 %>
+            <% habbit.actions.order("created_at desc").each do |action|%>
+            <% if action.created_at.to_s.to_date == d.to_s.to_date then c= c+1 %>
+            <% d= d- 1.day %>
+            <% end %>
+            <% end %>
+            <%= c %>
         </td>
 
         <td>
-          <%= habbit.description %>
+          <form action="/create_action" method="post">
+
+            <input type="hidden" name="user_id" value="<%= current_user.id %>">
+
+            <input type="hidden" name="habbit_id" value="<%= habbit.id %>">
+
+            <button class="btn btn-block btn-outline-secondary">
+              Create action
+            </button>
+          </form>
         </td>
 
-        <td>
-          <%= habbit.points %>
-        </td>
-
-        <td>
-          <%= habbit.virtue %>
-        </td>
-
-        <td>
-          <%= habbit.active %>
-        </td>
-
-        <td>
-          <%= habbit.user_id %>
-        </td>
-
-        <td>
-          <%= time_ago_in_words(habbit.created_at) %> ago
-        </td>
-        <td>
-          <%= time_ago_in_words(habbit.updated_at) %> ago
-        </td>
 
         <td>
           <a href="/habbits/<%= habbit.id %>">
@@ -92,7 +131,7 @@
           </a>
         </td>
       </tr>
-      <% end %>
-    </table>
-  </div>
+    <% end %>
+  </table>
+</div>
 </div>

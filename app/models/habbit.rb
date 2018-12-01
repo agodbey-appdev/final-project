@@ -13,4 +13,6 @@
 #
 
 class Habbit < ApplicationRecord
+  belongs_to :user
+  has_many :actions
 end
