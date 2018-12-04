@@ -22,6 +22,7 @@ module FinalProject
       g.test_framework nil
       g.factory_bot false
       g.scaffold_stylesheet false
+
     end
 
     # Initialize configuration defaults for originally generated Rails version.
@@ -35,3 +36,4 @@ module FinalProject
     config.generators.system_tests = nil
   end
 end
+

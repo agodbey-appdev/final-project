@@ -52,11 +52,11 @@
         </td>
 
         <td>
-          <%= action.habbit_id %>
+          <%= action.habbit.description %>
         </td>
 
         <td>
-          <%= time_ago_in_words(action.created_at) %> ago
+          <%= action.created_at.in_time_zone('Central Time (US & Canada)').to_s.to_date %> ago
         </td>
         <td>
           <%= time_ago_in_words(action.updated_at) %> ago

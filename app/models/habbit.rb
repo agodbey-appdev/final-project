@@ -5,7 +5,6 @@
 #  id          :integer          not null, primary key
 #  description :string
 #  points      :integer
-#  virtue      :integer
 #  active      :integer
 #  user_id     :integer
 #  created_at  :datetime         not null

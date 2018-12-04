@@ -22,6 +22,7 @@ class ActionsController < ApplicationController
 
     @action.habbit_id = params.fetch("habbit_id")
     @action.user_id = params.fetch("user_id")
+    @action.points = params.fetch("points")
 
     if @action.valid?
       @action.save

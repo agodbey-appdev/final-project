@@ -26,6 +26,7 @@ Rails.application.routes.draw do
 
 
   # READ
+    get("/", { :controller => "habbits", :action => "index" })
   get("/habbits", { :controller => "habbits", :action => "index" })
   get("/habbits/:id_to_display", { :controller => "habbits", :action => "show" })
 
@@ -34,7 +35,7 @@ Rails.application.routes.draw do
   post("/update_habbit/:id_to_modify", { :controller => "habbits", :action => "update_row" })
 
   # DELETE
-  get("/delete_habbit/:id_to_remove", { :controller => "habbits", :action => "destroy_row" })
+  get("/deactivate_habbit/:id_to_deactivate", { :controller => "habbits", :action => "deactivate_row" })
 
   #------------------------------
 

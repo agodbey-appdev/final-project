@@ -1,7 +1,7 @@
 class HabbitsController < ApplicationController
   def index
-    @habbits = Habbit.all
-
+    @habbits = current_user.habbits.all
+  @bank=current_user.actions.sum(:points)
     render("habbit_templates/index.html.erb")
   end
 
@@ -22,14 +22,13 @@ class HabbitsController < ApplicationController
 
     @habbit.description = params.fetch("description")
     @habbit.points = params.fetch("points")
-    @habbit.virtue = params.fetch("virtue")
     @habbit.active = params.fetch("active")
     @habbit.user_id = params.fetch("user_id")
 
     if @habbit.valid?
       @habbit.save
 
-      redirect_back(:fallback_location => "/habbits", :notice => "Habbit created successfully.")
+      redirect_to("/", :notice => "Habbit created successfully.")
     else
       render("habbit_templates/new_form_with_errors.html.erb")
     end
@@ -46,7 +45,6 @@ class HabbitsController < ApplicationController
 
     @habbit.description = params.fetch("description")
     @habbit.points = params.fetch("points")
-    @habbit.virtue = params.fetch("virtue")
     @habbit.active = params.fetch("active")
     @habbit.user_id = params.fetch("user_id")
 
@@ -59,11 +57,12 @@ class HabbitsController < ApplicationController
     end
   end
 
-  def destroy_row
-    @habbit = Habbit.find(params.fetch("id_to_remove"))
+  def deactivate_row
+    @habbit = Habbit.find(params.fetch("id_to_deactivate"))
 
-    @habbit.destroy
+    @habbit.active=0
+    @habbit.save
 
-    redirect_to("/habbits", :notice => "Habbit deleted successfully.")
+    redirect_to("/habbits", :notice => "Habbit deactivated successfully.")
   end
 end
