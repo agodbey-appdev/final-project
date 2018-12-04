@@ -23,12 +23,15 @@ Rails.application.routes.draw do
   # CREATE
   get("/habbits/new", { :controller => "habbits", :action => "new_form" })
   post("/create_habbit", { :controller => "habbits", :action => "create_row" })
+   get("/habbits/reactivate_habbit/:id_to_display", { :controller => "habbits", :action => "reactivate" })
 
 
   # READ
     get("/", { :controller => "habbits", :action => "index" })
   get("/habbits", { :controller => "habbits", :action => "index" })
   get("/habbits/:id_to_display", { :controller => "habbits", :action => "show" })
+   get("/old_habbits", { :controller => "habbits", :action => "show_old" })
+  
 
   # UPDATE
   get("/habbits/:prefill_with_id/edit", { :controller => "habbits", :action => "edit_form" })

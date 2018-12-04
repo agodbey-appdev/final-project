@@ -4,53 +4,98 @@
 
 <hr>
 
-<form action="/update_habbit/<%= @habbit.id %>" method="post">
+<form action="/update_habbit/<%=@habbit.id%>" method="post">
 
   <div class="form-group">
     <label for="description">
       Description
     </label>
 
-    <input type="text" id="description" name="description" class="form-control" value="<%= @habbit.description %>">
+    <input type="text" id="description" name="description" class="form-control" value="<%= @habbit.description%>">
   </div>
 
   <div class="form-group">
-    <label for="points">
-      Points
-    </label>
+    <label for="points" value="<%=@habbit.points%>">Select importance of habbit</label>
+    <select class="form-control" name="points" id="points">
+      <option value=-5 
+        <% if @habbit.points== -5%>
+        selected="selected"
+        <% end %>
+        >-5: Terrible Vice</option>
+        
 
-    <input type="text" id="points" name="points" class="form-control" value="<%= @habbit.points %>">
+      <option value=-4
+        <% if @habbit.points== -4%>
+        selected="selected"
+        <% end %>
+        >-4</option>
+
+          <option value=-3
+        <% if @habbit.points== -3%>
+        selected="selected"
+        <% end %>
+        >-3</option>
+        
+      <option value=-2 
+        <% if @habbit.points== -2%>
+        selected="selected"
+        <% end %>
+        >-2</option>
+        
+            <option value=-1 
+        <% if @habbit.points== -1%>
+        selected="selected"
+        <% end %>
+        >-1</option>
+        
+            <option value=0
+        <% if @habbit.points== 0%>
+        selected="selected"
+        <% end %>
+        >0: Neutral habbit</option>
+        
+ <option value=1 
+        <% if @habbit.points== 1%>
+        selected="selected"
+        <% end %>
+        >1</option>
+        
+    <option value=2 
+        <% if @habbit.points== 2%>
+        selected="selected"
+        <% end %>
+        >2</option>
+        
+  <option value=3
+        <% if @habbit.points== 3%>
+        selected="selected"
+        <% end %>
+        >3</option>
+        
+      <<option value=4 
+        <% if @habbit.points== 4%>
+        selected="selected"
+        <% end %>
+        >4</option>
+        
+      <option value=5
+        <% if @habbit.points== 5%>
+        selected="selected"
+        <% end %>
+        >5: Great virtue</option>
+        
+    </select>
   </div>
 
-  <div class="form-group">
-    <label for="virtue">
-      Virtue
-    </label>
 
-    <input type="text" id="virtue" name="virtue" class="form-control" value="<%= @habbit.virtue %>">
-  </div>
+  <input type="hidden" name="active" value=1>
 
-  <div class="form-group">
-    <label for="active">
-      Active
-    </label>
-
-    <input type="text" id="active" name="active" class="form-control" value="<%= @habbit.active %>">
-  </div>
-
-  <div class="form-group">
-    <label for="user_id">
-      User
-    </label>
-
-    <input type="text" id="user_id" name="user_id" class="form-control" value="<%= @habbit.user_id %>">
-  </div>
+  <input type="hidden" name="user_id" value="<%= current_user.id %>">
 
   <button class="btn btn-block btn-outline-secondary">
-    Update habbit
+    Edit Habbit
   </button>
 </form>
-
 <hr>
 
 <a href="/habbits">

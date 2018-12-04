@@ -65,4 +65,18 @@ class HabbitsController < ApplicationController
 
     redirect_to("/habbits", :notice => "Habbit deactivated successfully.")
   end
+  
+  def show_old
+    @oldhabbits = current_user.habbits.where(:active => "0").all
+    render("habbit_templates/old_habbits.html.erb")
+  end
+  
+  def reactivate
+    @habbit = Habbit.find(params.fetch("id_to_display"))
+
+    @habbit.active=1
+    @habbit.save
+    redirect_to("/habbits", :notice => "Habbit reactivated successfully.")
+  end
+  
 end

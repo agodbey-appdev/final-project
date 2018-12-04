@@ -1,0 +1,87 @@
+<div class="row mb-3">
+<H1 class="col-md-12">
+Deactivated habbits
+</H1> 
+
+<hr>
+
+<div class="row mb-3">
+  <div class="col-md-12">
+    <table class="table">
+      <tr>
+
+        <th>
+          Habbit Type
+        </th>
+
+        <th>
+          Points
+        </th>
+
+        <th>
+          Last Performed
+        </th>
+
+
+        <th>
+        </th>
+      </tr>
+
+      <% @oldhabbits.order("points desc").each do |habbit| %>
+        <% if habbit.points >0 %> 
+        <tr class="text-success">
+        <% elsif habbit.points <0 %>
+        <tr class="text-danger">
+        <% else %>
+        <tr>
+        <% end %>
+
+          <td>
+            <%= habbit.description %>
+          </td>
+
+          <td>
+            <%= habbit.points %>
+          </td>
+
+
+          <td>
+            <% if habbit.actions.exists? %>
+            <%= time_ago_in_words(habbit.actions.maximum(:created_at).in_time_zone('Central Time (US & Canada)')) %> ago
+            <% else %> Never!
+            <% end %>
+          </td>
+
+
+
+        <td>
+          <a href="/habbits/<%= habbit.id %>">
+            Show details
+          </a>
+        </td>
+        
+        <td>
+          <a href="/habbits/reactivate_habbit/<%= habbit.id %>">
+            Reactivate habbit
+          </a>
+        </td>
+        
+         <td>
+          <a href="/habbits/<%= habbit.id %>/edit">
+            Edit & reactivate habbit
+          </a>
+        </td>
+        
+        
+      </tr>
+
+    <% end %>
+
+  </table>
+</div>
+</div>
+
+<hr>
+  
+  
+</div>
