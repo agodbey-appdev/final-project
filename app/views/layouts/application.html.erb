@@ -31,13 +31,21 @@
         <a class="navbar-brand" href="/">
           Karma Bank
         </a>
+        
+  
+<% if current_user.present? %>
+<% if current_user.resets.present? %>
+<% @points=current_user.actions.where("created_at > ?", current_user.resets.maximum(:created_at)).sum(:points) %>
+<% else @points=current_user.actions.sum(:points) %>
+<% end %>
 
         <a class="navbar-brand" href="/">
-          Account balance: <%= current_user.actions.where("created_at > ?", current_user.resets.maximum(:created_at)).sum(:points)%> 
-          <% if current_user.actions.where(":created_at > ?", current_user.resets.maximum(:created_at)).sum(:points)== "1"%> point 
+          Account balance: <%= @points%> 
+          <% if @points== "1"%> point 
           <% else %> points 
           <% end %>
         </a>
+<% end %>
       
 
 
