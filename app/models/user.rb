@@ -26,4 +26,5 @@ class User < ApplicationRecord
          
          has_many :habbits
          has_many :actions
+         has_many :resets
 end

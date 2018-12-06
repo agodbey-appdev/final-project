@@ -1,6 +1,6 @@
 <div class="row mb-3">
   <div class="col-md-12">
-    
+
     <a href="/habbits/new" class="btn btn-block btn-outline-secondary">
       Add a new habbit
     </a>
@@ -9,9 +9,9 @@
 
 
 <hr>
-<H1>
-Habbits
-</H1> 
+<H1 class="text-center">
+  Habbits
+</H1>
 <div class="row mb-3">
   <div class="col-md-12">
     <table class="table">
@@ -39,109 +39,123 @@ Habbits
       </tr>
 
       <% @habbits.where(:active => "1").order("points desc").each do |habbit| %>
-        <% if habbit.points >0 %> 
-        <tr class="text-success">
-        <% elsif habbit.points <0 %>
-        <tr class="text-danger">
-        <% else %>
-        <tr>
-        <% end %>
-
-          <td>
-            <%= habbit.description %>
-          </td>
-
-          <td>
-            <%= habbit.points %>
-          </td>
-
-
-          <td>
-            <% if habbit.actions.exists? %>
-            <%= time_ago_in_words(habbit.actions.maximum(:created_at).in_time_zone('Central Time (US & Canada)')) %> ago
-            <% else %> Never!
-            <% end %>
-          </td>
-
-          <td>
-<%if habbit.actions.exists?  %>
-<% then %>
-            <%  d = Time.now.in_time_zone('Central Time (US & Canada)').to_s.to_date %>
-            <% c= 0 %>
-            <% habbit.actions.order("created_at desc").each do |action|%>
-            <% if action.created_at.in_time_zone('Central Time (US & Canada)').to_s.to_date == d.to_s.to_date then c= c+1 %>
-            <% d= d- 1.day %>
-            <% end %>
-            <% end %>
-            <% if c== 0 then %>
-            Complete today to reveal streak 
-            <% elsif c==1 then %> 
-            <%= c %> day 
-            <% else %> 
-            <%= c %> days 
-            <% end %>
-            
+        <% if habbit.points >0 %>
+          <tr class="text-success">
+          <% elsif habbit.points <0 %>
+            <tr class="text-danger">
             <% else %>
-            Complete for the first time!
-<% end %>
-        </td>
+              <tr>
+              <% end %>
 
-        <td>
-          <% if @bank + habbit.points<0 %>
-          <% then %>
-         <button type="button" class="btn btn-lg btn-danger" disabled>Not enough points</button> 
-          <% else %>
-          <form action="/create_action" method="post"> 
+              <td>
+                <%= habbit.description %>
+              </td>
 
-            <input type="hidden" name="user_id" value="<%= current_user.id %>">
+              <td>
+                <%= habbit.points %>
+              </td>
 
-            <input type="hidden" name="habbit_id" value="<%= habbit.id %>">
-            
-            <input type="hidden" name="points" value="<%= habbit.points %>">
 
-            <button class="btn btn-block btn-outline-secondary">
-              Create action
-            </button>
-          </form>
+              <td>
+                <% if habbit.actions.exists? %>
+                  <%= time_ago_in_words(habbit.actions.maximum(:created_at).in_time_zone('Central Time (US & Canada)')) %> ago
+                <% else %> Never!
+                <% end %>
+              </td>
+
+              <td>
+                <%if habbit.actions.exists?  %>
+                  <% then %>
+                  <%  d = Time.now.in_time_zone('Central Time (US & Canada)').to_s.to_date %>
+                  <% c= 0 %>
+                  <% habbit.actions.order("created_at desc").each do |action|%>
+                    <% if action.created_at.in_time_zone('Central Time (US & Canada)').to_s.to_date == d.to_s.to_date then c= c+1 %>
+                      <% d= d- 1.day %>
+                    <% end %>
+                  <% end %>
+                  <% if c== 0 then %>
+                    Complete today to reveal streak 
+                  <% elsif c==1 then %>
+                    <%= c %> day 
+                  <% else %>
+                    <%= c %> days 
+                  <% end %>
+
+                <% else %>
+                  Complete for the first time!
+                <% end %>
+              </td>
+
+              <td>
+                <% if @bank + habbit.points<0 %>
+                  <% then %>
+                  <button type="button" class="btn btn-lg btn-danger" disabled>Not enough points</button>
+                <% else %>
+                  <form action="/create_action" method="post">
+
+                    <input type="hidden" name="user_id" value="<%= current_user.id %>">
+
+                    <input type="hidden" name="habbit_id" value="<%= habbit.id %>">
+
+                    <input type="hidden" name="points" value="<%= habbit.points %>">
+
+                    <button class="btn btn-block btn-outline-secondary">
+                      Create action
+                    </button>
+                  </form>
+                <% end %>
+              </td>
+
+
+              <td>
+                <a href="/habbits/<%= habbit.id %>">
+                  Show details
+                </a>
+              </td>
+
+              <td>
+                <a href="/deactivate_habbit/<%= habbit.id %>">
+                  Deactivate habbit
+                </a>
+              </td>
+
+              <td>
+                <a href="/habbits/<%= habbit.id %>/edit">
+                  Edit habbit
+                </a>
+              </td>
+
+
+            </tr>
+
           <% end %>
-        </td>
 
+        </table>
+      </div>
+    </div>
 
-        <td>
-          <a href="/habbits/<%= habbit.id %>">
-            Show details
-          </a>
-        </td>
-        
-        <td>
-          <a href="/deactivate_habbit/<%= habbit.id %>">
-            Deactivate habbit
-          </a>
-        </td>
-        
-         <td>
-          <a href="/habbits/<%= habbit.id %>/edit">
-            Edit habbit
-          </a>
-        </td>
-        
-        
-      </tr>
+    <hr>
 
-    <% end %>
+    <div class="row mb-3">
 
-  </table>
-</div>
-</div>
+      <div class="col-md-6">
 
-<hr>
-  <div class="col-md-12">
-    
-    <a href="/old_habbits" class="btn btn-block btn-outline-secondary">
-      Reactivate previous habbits
-    </a>
+        <a href="/old_habbits" class="btn btn-block btn-outline-secondary">
+          Reactivate previous habbits
+        </a>
+      </div>
+
+      <div class="col-md-6">
+        <form action="/reset" method="post">
+
+          <input type="hidden" name="user_id" value="<%= current_user.id %>">
+
+          <button class="btn btn-block btn-outline-secondary">
+            Reset bank
+          </button>
+        </form>
+      </div>
+
+    </div>
+
   </div>
-  
-  
-  
-</div>

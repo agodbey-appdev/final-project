@@ -32,6 +32,15 @@
           Karma Bank
         </a>
 
+        <a class="navbar-brand" href="/">
+          Account balance: <%= current_user.actions.where("created_at > ?", current_user.resets.maximum(:created_at)).sum(:points)%> 
+          <% if current_user.actions.where(":created_at > ?", current_user.resets.maximum(:created_at)).sum(:points)== "1"%> point 
+          <% else %> points 
+          <% end %>
+        </a>
+      
+
+
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsible-nav-links" aria-controls="collapsible-nav-links" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -51,11 +60,6 @@
             </li>
           <% else %>
           
-           <li class="nav-item">
-              <a href="/users/edit" class="nav-link">
-                <%= current_user.actions.sum(:points) %>
-              </a>
-            </li>
           
             <li class="nav-item">
               <a href="/users/edit" class="nav-link">

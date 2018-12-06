@@ -1,7 +1,7 @@
 class HabbitsController < ApplicationController
   def index
     @habbits = current_user.habbits.all
-  @bank=current_user.actions.sum(:points)
+  @bank=current_user.actions.where("created_at > ?", current_user.resets.maximum(:created_at)).sum(:points)
     render("habbit_templates/index.html.erb")
   end
 

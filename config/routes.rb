@@ -41,6 +41,10 @@ Rails.application.routes.draw do
   get("/deactivate_habbit/:id_to_deactivate", { :controller => "habbits", :action => "deactivate_row" })
 
   #------------------------------
+  
+   # Routes for the Reset resource:
+   # CREATE
+     post("/reset", { :controller => "reset", :action => "complete_reset" })
 
   devise_for :users
   devise_for :admin_users, ActiveAdmin::Devise.config
