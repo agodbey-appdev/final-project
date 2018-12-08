@@ -12,6 +12,9 @@
 #
 
 class Habbit < ApplicationRecord
+  validates :description, presence: true, allow_blank: false
+  validates :description, uniqueness: {scope: :user_id, case_sensitive: false,
+                                       message: "You already have an active or inactive habbit with the same description"}
   belongs_to :user
   has_many :actions
 end

@@ -31,22 +31,21 @@
         <a class="navbar-brand" href="/">
           Karma Bank
         </a>
-        
-  
-<% if current_user.present? %>
-<% if current_user.resets.present? %>
-<% @points=current_user.actions.where("created_at > ?", current_user.resets.maximum(:created_at)).sum(:points) %>
-<% else @points=current_user.actions.sum(:points) %>
-<% end %>
 
-        <a class="navbar-brand" href="/">
-          Account balance: <%= @points%> 
-          <% if @points== "1"%> point 
-          <% else %> points 
+
+        <% if current_user.present? %>
+          <% if current_user.resets.present? %>
+            <% @points=current_user.actions.where("created_at > ?", current_user.resets.maximum(:created_at)).sum(:points) %>
+          <% else @points=current_user.actions.sum(:points) %>
           <% end %>
-        </a>
-<% end %>
-      
+
+          <a class="navbar-brand" href="/">
+            Account balance: <%= @points%>
+            <% if @points== "1"%> point 
+            <% else %> points 
+            <% end %>
+          </a>
+        <% end %>
 
 
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsible-nav-links" aria-controls="collapsible-nav-links" aria-expanded="false" aria-label="Toggle navigation">
@@ -67,8 +66,8 @@
               </a>
             </li>
           <% else %>
-          
-          
+
+
             <li class="nav-item">
               <a href="/users/edit" class="nav-link">
                 <%= current_user.username %>
@@ -83,14 +82,34 @@
           <% end %>
         </ul>
       </div>
+
+
       <!-- .navbar-collapse -->
     </div>
+    
+
     <!-- .container -->
+
   </nav>
-  
-  <div class="container">
-    <%= yield %>
-  </div>
+
+
+        <div class="container mt-4">
+      <% if notice.present? %>
+        <div class="alert alert-dismissable alert-success">
+          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+          <%= notice %>
+        </div>
+      <% end %>
+
+      <% if alert.present? %>
+        <div class="alert alert-dismissable alert-warning">
+          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+          <%= alert %>
+        </div>
+      <% end %>
+      <%= yield %>
+    </div>
+    
 
   <%= dev_tools if Rails.env.development? %>
 </body>

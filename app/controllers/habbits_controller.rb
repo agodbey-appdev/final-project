@@ -1,7 +1,7 @@
 class HabbitsController < ApplicationController
   def index
     @habbits = current_user.habbits.all
-  @bank=current_user.actions.where("created_at > ?", current_user.resets.maximum(:created_at)).sum(:points)
+    @bank = current_user.actions.where("created_at > ?", current_user.resets.maximum(:created_at)).sum(:points)
     render("habbit_templates/index.html.erb")
   end
 
@@ -20,7 +20,7 @@ class HabbitsController < ApplicationController
   def create_row
     @habbit = Habbit.new
 
-    @habbit.description = params.fetch("description")
+    @habbit.description = params.fetch("description").strip
     @habbit.points = params.fetch("points")
     @habbit.active = params.fetch("active")
     @habbit.user_id = params.fetch("user_id")
@@ -43,7 +43,7 @@ class HabbitsController < ApplicationController
   def update_row
     @habbit = Habbit.find(params.fetch("id_to_modify"))
 
-    @habbit.description = params.fetch("description")
+    @habbit.description = params.fetch("description").strip
     @habbit.points = params.fetch("points")
     @habbit.active = params.fetch("active")
     @habbit.user_id = params.fetch("user_id")
@@ -60,23 +60,22 @@ class HabbitsController < ApplicationController
   def deactivate_row
     @habbit = Habbit.find(params.fetch("id_to_deactivate"))
 
-    @habbit.active=0
+    @habbit.active = 0
     @habbit.save
 
     redirect_to("/habbits", :notice => "Habbit deactivated successfully.")
   end
-  
+
   def show_old
     @oldhabbits = current_user.habbits.where(:active => "0").all
     render("habbit_templates/old_habbits.html.erb")
   end
-  
+
   def reactivate
     @habbit = Habbit.find(params.fetch("id_to_display"))
 
-    @habbit.active=1
+    @habbit.active = 1
     @habbit.save
     redirect_to("/habbits", :notice => "Habbit reactivated successfully.")
   end
-  
 end

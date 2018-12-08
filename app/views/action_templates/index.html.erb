@@ -5,6 +5,8 @@
     </h1>
 
   </div>
+
+
 </div>
 
 
@@ -21,19 +23,23 @@
     </tr>
   </thead>
   <tbody>
-     <% current_user.actions.order("created_at desc").each do |action| %>
-    <tr <% if action.points>0 %> class="text-success" <% elsif action.points<0%> class="text-danger" <% end %>>
-      <td><%=action.created_at.in_time_zone('Central Time (US & Canada)').to_s.to_date%></td>
-      <td><%=action.created_at.in_time_zone('Central Time (US & Canada)').strftime("%I:%M %p")%></td>
-      <td><%=action.habbit.description%></td>
-      <td><%=action.points%></td>
-      <td>
+    <% current_user.actions.order("created_at desc").each do |action| %>
+      <tr <% if action.points>0 %> class="text-success" <% elsif action.points<0%> class="text-danger" <% end %>>
+        <td><%=action.created_at.in_time_zone('Central Time (US & Canada)').to_s.to_date%></td>
+        <td><%=action.created_at.in_time_zone('Central Time (US & Canada)').strftime("%I:%M %p")%></td>
+        <td><%=action.habbit.description%></td>
+        <td><%=action.points%></td>
+        <td>
           <a href="/delete_action/<%=action.id%>">
-              <span class="badge badge-primary badge-pill">
-                delete action
-              </span>
-      </td>
-    </tr>
-    <% end %>
-  </tbody>
-</table>
+            <span class="badge badge-primary badge-pill">
+              delete action
+            </span>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <a href="/habbits">
+    Return to dashboard      
+  </a>

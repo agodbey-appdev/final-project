@@ -4,45 +4,47 @@
 
     <div class="card" >
       <div class="card-body">
-        <h3 class="card-title text-center">List of completed actions for:</h3> 
-             <h5 class="card-subtitle mb-2 text-center <% if @habbit.points < 0 %> text-danger" 
+        <h3 class="card-title text-center">List of completed actions for:</h3>
+        <h5 class="card-subtitle mb-2 text-center <% if @habbit.points < 0 %> text-danger" 
         <% elsif @habbit.points > 0 %> text-success"
     <% else %> text-muted" <% end %> >
-         <%= @habbit.description %> (<%= @habbit.points %> point<%if @habbit.points!= 1%>s)
-         <% else %>)
-         <%end%> </h5>
+          <%= @habbit.description %> (<%= @habbit.points %> point<%if @habbit.points!= 1%>s)
+          <% else %>)
+          <%end%> </h5>
         <h5 class="card-subtitle mb-2 text-muted text-center">Created <%= time_ago_in_words(@habbit.created_at.in_time_zone('Central Time (US & Canada)')) %> ago</h6>
-   
 
-          
-          
+
       </div>
 
-<table class="table">
-  <thead>
-    <tr>
-      <th scope="col">Date</th>
-      <th scope="col">Time</th>
-      <th scope="col"></th>
-    </tr>
-  </thead>
-  <tbody>
-     <% @habbit.actions.order("created_at desc").each do |action| %>
-    <tr>
-      <td><%=action.created_at.in_time_zone('Central Time (US & Canada)').to_s.to_date%></td>
-      <td><%=action.created_at.in_time_zone('Central Time (US & Canada)').strftime("%I:%M %p")%></td>
-      <td>
-          <a href="/delete_action/<%=action.id%>">
-              <span class="badge badge-primary badge-pill">
-                delete action
-              </span>
-      </td>
-    </tr>
-    <% end %>
-  </tbody>
-</table>
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Date</th>
+            <th scope="col">Time</th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @habbit.actions.order("created_at desc").each do |action| %>
+            <tr>
+              <td><%=action.created_at.in_time_zone('Central Time (US & Canada)').to_s.to_date%></td>
+              <td><%=action.created_at.in_time_zone('Central Time (US & Canada)').strftime("%I:%M %p")%></td>
+              <td>
+                <a href="/delete_action/<%=action.id%>">
+                  <span class="badge badge-primary badge-pill">
+                    delete action
+                  </span>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
 
 
+      </div>
+
+      <a href="/habbits">
+        Go back
+      </a>
 
     </div>
-  </div>
