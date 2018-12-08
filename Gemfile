@@ -52,3 +52,5 @@ group :test do
   gem "webmock"
   gem "rspec-html-matchers"
 end
+
+ruby '2.4.5'
