@@ -15,8 +15,8 @@ gem "tzinfo-data", platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem "uglifier", ">= 1.3.0"
 
 group :production do
-  gem "pg"
-  gem "rails_12factor"
+  gem "pg", "~> 0.18", :group => :production
+  gem "rails_12factor", :group => :production
 end
 
 group :development, :test do
@@ -28,7 +28,7 @@ group :development, :test do
   gem "draft_log", github: "firstdraft/draft_log"
   gem "grade_runner", github: "firstdraft/grade_runner"
   gem "pry-rails"
-  gem "sqlite3"
+  gem "sqlite3", :group => :development
   gem "web_git", github: "firstdraft/web_git"
 end
 
